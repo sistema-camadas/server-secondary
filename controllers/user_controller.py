@@ -28,4 +28,25 @@ def create_user():
     db.session.commit()
     return created(data=user.to_dict()) # Mensagem de sucesso ao criar usuário
 
+## Atualizar usuário ##
+@user_bp.route('/users/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return not_found()
+    data = request.get_json()
+    user.name = data['name']
+    user.email = data['email']
+    db.session.commit()
+    return success(data=user.to_dict()) # Mensagem de sucesso ao atualizar usuário
+
+## Deletar usuário ##
+@user_bp.route('/users/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return not_found()
+    db.session.delete(user)
+    db.session.commit()
+    return deleted() # Mensagem de sucesso ao deletar usuário
 
