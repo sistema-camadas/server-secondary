@@ -1,12 +1,17 @@
 from flask import Flask
-from models.database import init_db
+from models.database import init_db, db
 from controllers.user_controller import user_bp
 from controllers.health_controller import health_bp
+
 
 app = Flask(__name__)
 
 # Inicializa o banco
 init_db(app)
+
+# Cria as tabelas se não existirem
+with app.app_context():
+    db.create_all()
 
 # Registra rotas
 app.register_blueprint(user_bp)
