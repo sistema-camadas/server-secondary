@@ -13,4 +13,4 @@ app.register_blueprint(user_bp)
 app.register_blueprint(health_bp)
 
 if __name__ == '__main__':
-    app.run(port=8000)
+    app.run(host='0.0.0.0', port=10000)
