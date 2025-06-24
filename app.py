@@ -2,6 +2,7 @@ from flask import Flask
 from models.database import init_db, db
 from controllers.user_controller import user_bp
 from controllers.health_controller import health_bp
+import os
 
 
 app = Flask(__name__)
@@ -18,4 +19,4 @@ app.register_blueprint(user_bp)
 app.register_blueprint(health_bp)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
+    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
